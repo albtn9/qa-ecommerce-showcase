@@ -1,7 +1,8 @@
 describe("Checkout flow", () => {
   beforeEach(() => {
     cy.clearLocalStorage();
-
+     cy.visit('/')
+    cy.get('[data-testid="input-email"]', { timeout: 10000 }).should('be.visible')
     cy.intercept("GET", "http://localhost:3001/products", {
       statusCode: 200,
       body: [

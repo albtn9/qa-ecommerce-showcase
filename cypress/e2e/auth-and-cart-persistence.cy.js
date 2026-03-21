@@ -28,18 +28,17 @@ describe("Auth guard and cart persistence", () => {
     cy.url().should("include", "/");
   });
 
-  it("keeps cart items after page reload", () => {
-    cy.visit("/");
-    cy.get('[data-testid="input-email"]').type("user@email.com");
-    cy.get('[data-testid="input-password"]').type("123456");
-    cy.get('[data-testid="btn-login"]').click();
-    cy.wait("@getProducts");
-
-    cy.url().should("include", "/products");
-    cy.get('[data-testid="btn-add-to-cart"]').first().click();
-    cy.get('[data-testid="btn-cart"]').should("contain", "(1)");
-
-    cy.reload();
-    cy.get('[data-testid="btn-cart"]').should("contain", "(1)");
-  });
+it('keeps cart items after page reload', () => {
+  cy.visit('/')
+  cy.get('[data-testid="input-email"]', { timeout: 10000 }).should('be.visible')
+  cy.get('[data-testid="input-email"]').type('user@email.com')
+  cy.get('[data-testid="input-password"]').type('123456')
+  cy.get('[data-testid="btn-login"]').click()
+  cy.wait('@getProducts')
+  cy.url().should('include', '/products')
+  cy.get('[data-testid="btn-add-to-cart"]').first().click()
+  cy.get('[data-testid="btn-cart"]').should('contain', '(1)')
+  cy.reload()
+  cy.get('[data-testid="btn-cart"]').should('contain', '(1)')
+})
 });
