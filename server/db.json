@@ -1,0 +1,93 @@
+{
+  "users": [
+    { "id": 1, "email": "user@email.com", "password": "123456", "name": "Ana QA" },
+    { "id": 2, "email": "admin@email.com", "password": "admin123", "name": "Admin" }
+  ],
+  "products": [
+    {
+      "id": 1,
+      "name": "Camiseta Preta",
+      "price": 59.90,
+      "originalPrice": 79.90,
+      "category": "roupas",
+      "stock": 10,
+      "inStock": true,
+      "image": "https://placehold.co/600x600",
+      "rating": 4.5,
+      "reviews": 128,
+      "description": "Camiseta básica de algodão premium, confortável para o dia a dia.",
+      "features": ["100% algodão", "Lavável na máquina", "Disponível em vários tamanhos"]
+    },
+    {
+      "id": 2,
+      "name": "Tênis Branco",
+      "price": 199.90,
+      "originalPrice": 249.90,
+      "category": "calcados",
+      "stock": 5,
+      "inStock": true,
+      "image": "https://placehold.co/600x600",
+      "rating": 4.8,
+      "reviews": 256,
+      "description": "Tênis casual branco, ideal para looks modernos e despojados.",
+      "features": ["Solado antiderrapante", "Material respirável", "Design minimalista"]
+    },
+    {
+      "id": 3,
+      "name": "Boné Azul",
+      "price": 39.90,
+      "originalPrice": null,
+      "category": "acessorios",
+      "stock": 20,
+      "inStock": true,
+      "image": "https://placehold.co/600x600",
+      "rating": 4.2,
+      "reviews": 64,
+      "description": "Boné aba curva azul marinho, estilo street wear.",
+      "features": ["Aba curva", "Ajuste por velcro", "Tecido resistente"]
+    },
+    {
+      "id": 4,
+      "name": "Calça Jeans",
+      "price": 129.90,
+      "originalPrice": 159.90,
+      "category": "roupas",
+      "stock": 8,
+      "inStock": true,
+      "image": "https://placehold.co/600x600",
+      "rating": 4.6,
+      "reviews": 192,
+      "description": "Calça jeans slim fit, corte moderno e confortável.",
+      "features": ["Slim fit", "Jeans stretch", "5 bolsos"]
+    },
+    {
+      "id": 5,
+      "name": "Mochila Cinza",
+      "price": 149.90,
+      "originalPrice": null,
+      "category": "acessorios",
+      "stock": 15,
+      "inStock": true,
+      "image": "https://placehold.co/600x600",
+      "rating": 4.7,
+      "reviews": 89,
+      "description": "Mochila cinza com compartimento para notebook de até 15 polegadas.",
+      "features": ["Compartimento para notebook", "USB charging port", "Impermeável"]
+    },
+    {
+      "id": 6,
+      "name": "Jaqueta Verde",
+      "price": 249.90,
+      "originalPrice": 299.90,
+      "category": "roupas",
+      "stock": 0,
+      "inStock": false,
+      "image": "https://placehold.co/600x600",
+      "rating": 4.9,
+      "reviews": 341,
+      "description": "Jaqueta verde militar, estilo vintage com bolsos funcionais.",
+      "features": ["4 bolsos externos", "Forro interno", "Zíper duplo"]
+    }
+  ],
+  "orders": []
+}
