@@ -4,10 +4,12 @@ import { Separator } from './ui/separator'
 import { useCart } from '../context/CartContext'
 
 interface OrderSummaryProps {
-  onCheckout: () => void
+  onCheckout?: () => void
+  showCheckoutButton?: boolean
 }
 
 export function OrderSummary({ onCheckout }: OrderSummaryProps) {
+  
   const { items, total } = useCart()
 
   const subtotal = total
