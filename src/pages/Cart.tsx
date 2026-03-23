@@ -1,97 +1,67 @@
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, Link } from 'react-router-dom'
+import { ShoppingBag, ChevronLeft } from 'lucide-react'
+import { Button } from '../components/ui/button'
 import { useCart } from '../context/CartContext'
+import { CartItem } from '../components/CartItem'
+import { OrderSummary } from '../components/OrderSummary'
 
 export default function Cart() {
-  const { items, removeFromCart, updateQuantity, total } = useCart()
+  const { items } = useCart()
   const navigate = useNavigate()
 
   return (
-    <div className="min-h-screen bg-gray-100">
-      <nav className="bg-white shadow px-6 py-4 flex justify-between items-center">
-        <h1 className="text-xl font-bold text-gray-800">QA Ecommerce</h1>
-        <button
-          data-testid="btn-back-products"
-          onClick={() => navigate('/products')}
-          className="text-blue-600 hover:underline"
-        >
-          ← Continuar comprando
-        </button>
-      </nav>
-
-      <div className="max-w-3xl mx-auto p-6">
-        <h2 className="text-2xl font-bold text-gray-800 mb-6">Meu Carrinho</h2>
-
-        {items.length === 0 ? (
-          <p data-testid="empty-cart" className="text-gray-500 text-center py-12">
-            Seu carrinho está vazio.
+    <div className="min-h-screen bg-background">
+      <div className="bg-gradient-to-r from-rose-500 to-pink-500 text-white py-8">
+        <div className="container mx-auto px-4">
+          <Button
+            variant="ghost"
+            size="sm"
+            asChild
+            className="text-white hover:text-white hover:bg-white/10 mb-4"
+          >
+            <Link to="/products">
+              <ChevronLeft className="size-4 mr-1" />
+              Continuar Comprando
+            </Link>
+          </Button>
+          <h1 className="text-3xl font-bold">Meu Carrinho</h1>
+          <p className="text-white/90 mt-1">
+            {items.length} {items.length === 1 ? 'item' : 'itens'} no carrinho
           </p>
-        ) : (
-          <>
-            <div className="space-y-4">
-              {items.map(({ product, quantity }) => (
-                <div
-                  key={product.id}
-                  data-testid="cart-item"
-                  className="bg-white rounded-lg shadow p-4 flex items-center gap-4"
-                >
-                  <img
-                    src={product.image}
-                    alt={product.name}
-                    className="w-20 h-20 object-cover rounded"
-                  />
-                  <div className="flex-1">
-                    <h3 data-testid="cart-item-name" className="font-semibold text-gray-800">
-                      {product.name}
-                    </h3>
-                    <p data-testid="cart-item-price" className="text-blue-600 font-bold">
-                      R$ {product.price.toFixed(2)}
-                    </p>
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <button
-                      data-testid="btn-decrease"
-                      onClick={() => updateQuantity(product.id, quantity - 1)}
-                      className="w-8 h-8 bg-gray-200 rounded hover:bg-gray-300 font-bold"
-                    >
-                      -
-                    </button>
-                    <span data-testid="cart-item-quantity" className="w-6 text-center">
-                      {quantity}
-                    </span>
-                    <button
-                      data-testid="btn-increase"
-                      onClick={() => updateQuantity(product.id, quantity + 1)}
-                      className="w-8 h-8 bg-gray-200 rounded hover:bg-gray-300 font-bold"
-                    >
-                      +
-                    </button>
-                  </div>
-                  <button
-                    data-testid="btn-remove"
-                    onClick={() => removeFromCart(product.id)}
-                    className="text-red-500 hover:text-red-700 font-medium"
-                  >
-                    Remover
-                  </button>
-                </div>
+        </div>
+      </div>
+
+      <div className="container mx-auto px-4 py-8">
+        {items.length > 0 ? (
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+            <div className="lg:col-span-2 space-y-4">
+              {items.map((item) => (
+                <CartItem key={item.product.id} item={item} />
               ))}
             </div>
-
-            <div className="bg-white rounded-lg shadow p-4 mt-6 flex justify-between items-center">
-              <span className="text-lg font-semibold text-gray-800">Total:</span>
-              <span data-testid="cart-total" className="text-2xl font-bold text-blue-600">
-                R$ {total.toFixed(2)}
-              </span>
+            <div className="lg:col-span-1">
+              <div className="sticky top-20">
+                <OrderSummary onCheckout={() => navigate('/checkout')} />
+              </div>
             </div>
-
-            <button
-              data-testid="btn-checkout"
-              onClick={() => navigate('/checkout')}
-              className="w-full mt-4 bg-blue-600 text-white py-3 rounded-lg hover:bg-blue-700 transition font-semibold text-lg"
+          </div>
+        ) : (
+          <div className="text-center py-16">
+            <ShoppingBag className="size-24 mx-auto text-muted-foreground/50 mb-4" />
+            <h2 data-testid="empty-cart" className="text-2xl font-bold mb-2">
+              Seu carrinho está vazio
+            </h2>
+            <p className="text-muted-foreground mb-6">
+              Parece que você ainda não adicionou nada ao carrinho.
+            </p>
+            <Button
+              className="bg-gradient-to-r from-rose-500 to-pink-500 hover:from-rose-600 hover:to-pink-600"
+              size="lg"
+              asChild
             >
-              Finalizar Compra
-            </button>
-          </>
+              <Link to="/products">Explorar Produtos</Link>
+            </Button>
+          </div>
         )}
       </div>
     </div>

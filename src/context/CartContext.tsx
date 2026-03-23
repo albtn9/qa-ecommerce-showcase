@@ -2,7 +2,7 @@ import { createContext, useContext, useEffect, useState } from 'react'
 import type { ReactNode } from 'react'
 import type { Product } from '../services/api'
 
-interface CartItem {
+export interface CartItem {
   product: Product
   quantity: number
 }
@@ -10,8 +10,8 @@ interface CartItem {
 interface CartContextType {
   items: CartItem[]
   addToCart: (product: Product) => void
-  removeFromCart: (productId: string) => void
-  updateQuantity: (productId: string, quantity: number) => void
+  removeFromCart: (productId: number) => void
+  updateQuantity: (productId: number, quantity: number) => void
   clearCart: () => void
   total: number
 }
@@ -22,7 +22,6 @@ export function CartProvider({ children }: { children: ReactNode }) {
   const [items, setItems] = useState<CartItem[]>(() => {
     const stored = localStorage.getItem('cartItems')
     if (!stored) return []
-
     try {
       return JSON.parse(stored) as CartItem[]
     } catch {
@@ -39,27 +38,28 @@ export function CartProvider({ children }: { children: ReactNode }) {
       const exists = prev.find(i => i.product.id === product.id)
       if (exists) {
         return prev.map(i =>
-          i.product.id === product.id
-            ? { ...i, quantity: i.quantity + 1 }
-            : i
+          i.product.id === product.id ? { ...i, quantity: i.quantity + 1 } : i
         )
       }
       return [...prev, { product, quantity: 1 }]
     })
   }
 
-  const removeFromCart = (productId: string) => {
+  const removeFromCart = (productId: number) => {
     setItems(prev => prev.filter(i => i.product.id !== productId))
   }
 
-  const updateQuantity = (productId: string, quantity: number) => {
+  const updateQuantity = (productId: number, quantity: number) => {
     if (quantity <= 0) return removeFromCart(productId)
     setItems(prev =>
       prev.map(i => i.product.id === productId ? { ...i, quantity } : i)
     )
   }
 
-  const clearCart = () => setItems([])
+  const clearCart = () => {
+    setItems([])
+    localStorage.removeItem('cartItems')
+  }
 
   const total = items.reduce((acc, i) => acc + i.product.price * i.quantity, 0)
 
