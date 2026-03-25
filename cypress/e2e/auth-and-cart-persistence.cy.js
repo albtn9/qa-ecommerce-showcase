@@ -29,7 +29,7 @@ describe("Auth guard and cart persistence", () => {
   });
 
 it('keeps cart items after page reload', () => {
-  cy.visit('/')
+  cy.visit('/login')
   cy.get('[data-testid="input-email"]', { timeout: 10000 }).should('be.visible')
   cy.get('[data-testid="input-email"]').type('user@email.com')
   cy.get('[data-testid="input-password"]').type('123456')
