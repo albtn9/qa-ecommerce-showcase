@@ -1,0 +1,16 @@
+[
+  {
+    "id": 1,
+    "name": "Camiseta Preta",
+    "price": 59.9,
+    "originalPrice": 79.9,
+    "category": "roupas",
+    "stock": 10,
+    "inStock": true,
+    "image": "img/Camiseta Preta.png",
+    "rating": 4.5,
+    "reviews": 128,
+    "description": "Camiseta básica",
+    "features": ["100% algodao"]
+  }
+]
